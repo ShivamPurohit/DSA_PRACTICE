@@ -1,5 +1,5 @@
 //Write a program to reverse an array or string
-
+// Time Complexity : O(n)
 public class Main{
     public static void main(String args[]){
         int[] arr = {1,2,3,4,6,8,9};
