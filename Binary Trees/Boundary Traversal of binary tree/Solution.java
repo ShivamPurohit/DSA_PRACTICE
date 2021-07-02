@@ -1,52 +1,80 @@
-public class Solution
-{
-    ArrayList<Integer> list = new ArrayList<>();
+//User function Template for Java
 
+// class Node  
+// { 
+//     int data; 
+//     Node left, right; 
+   
+//     public Node(int d)  
+//     { 
+//         data = d; 
+//         left = right = null; 
+//     } 
+// }
+
+class Solution
+{
+    
 	ArrayList <Integer> printBoundary(Node node)
 	{
-	    Solution s = new Solution();
+	  Solution sol = new Solution();
+	    ArrayList<Integer> res = new ArrayList<>();
 	    if(node!=null){
-	
-	    s.leftBoundary(node);
-	    s.leaf(node);
+	        res.add(node.data);
 	    }
+	  sol.printBoundaryLeft(node.left,res);
+	    
+	  sol.printBoundaryLeaves(node.left,res);
+	  sol.printBoundaryLeaves(node.right,res);
+	    
+	  sol.printBoundaryRight(node.right,res);
+	    return res;
+	    
+	}
+	
+	void printBoundaryLeft(Node node, ArrayList<Integer> res){
+	    
+	    if(node == null) return; 
+	    
+	    if(node.left!=null){
+	        res.add(node.data);
+	        printBoundaryLeft(node.left,res);
+	       
+	    }
+	    
+	   else if(node.right!=null){
+	        res.add(node.data);
+	        printBoundaryLeft(node.right,res);
+	        
+	    }
+	    
+	}
+	
+	void printBoundaryLeaves(Node node,ArrayList<Integer> res){
+	    
+	    if(node == null) return;
+	    
+	    printBoundaryLeaves(node.left,res);
+	    if(node.left == null && node.right== null){
+	        res.add(node.data);
+	    }
+	    
+	   printBoundaryLeaves(node.right,res);
+	}
+	
+	void printBoundaryRight(Node node,ArrayList<Integer> res){
+	    if(node == null) return;
+	    
 	    if(node.right!=null){
-	    s.rightBoundary(node.right);
+	        printBoundaryRight(node.right,res);
+	        res.add(node.data);
 	    }
-	    return list;
-	}
-	
-	void leftBoundary(Node node){
-	    if(node!=null){
-	        if(node.left!=null){
-	            list.add(node.data);
-	            leftBoundary(node.left);
-	        }else if(node.right!=null){
-	            list.add(node.data);
-	            leftBoundary(node.right);
-	        }
+	    
+	   else if(node.left!=null){
+	        printBoundaryRight(node.left,res);
+	        res.add(node.data);
 	    }
 	}
 	
-	void leaf(Node node){
-	    if(node!=null){
-	        leaf(node.left);
-	        if((node.left==null)&&(node.right==null)){
-	            list.add(node.data);
-	        }
-	        leaf(node.right);
-	    }
-	}
 	
-	void rightBoundary(Node node){
-	     if(node!=null){
-	        if(node.right!=null){
-	            list.add(node.data);
-	            rightBoundary(node.right);
-	        }else if(node.left!=null){
-	            list.add(node.data);
-	            rightBoundary(node.left);
-	        }
-	    }
-	}
 }
